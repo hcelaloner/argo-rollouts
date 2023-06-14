@@ -243,6 +243,9 @@
                                             },
                                             "datadog": {
                                                 "properties": {
+                                                    "apiVersion": {
+                                                        "type": "string"
+                                                    },
                                                     "interval": {
                                                         "type": "string"
                                                     },
@@ -319,6 +322,72 @@
                                                             "parallelism": {
                                                                 "format": "int32",
                                                                 "type": "integer"
+                                                            },
+                                                            "podFailurePolicy": {
+                                                                "properties": {
+                                                                    "rules": {
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "action": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "onExitCodes": {
+                                                                                    "properties": {
+                                                                                        "containerName": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "operator": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "values": {
+                                                                                            "items": {
+                                                                                                "format": "int32",
+                                                                                                "type": "integer"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "set"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "operator",
+                                                                                        "values"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "onPodConditions": {
+                                                                                    "items": {
+                                                                                        "properties": {
+                                                                                            "status": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": {
+                                                                                                "type": "string"
+                                                                                            }
+                                                                                        },
+                                                                                        "required": [
+                                                                                            "status",
+                                                                                            "type"
+                                                                                        ],
+                                                                                        "type": "object"
+                                                                                    },
+                                                                                    "type": "array",
+                                                                                    "x-kubernetes-list-type": "atomic"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "action",
+                                                                                "onPodConditions"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "x-kubernetes-list-type": "atomic"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "rules"
+                                                                ],
+                                                                "type": "object"
                                                             },
                                                             "selector": {
                                                                 "properties": {
@@ -2805,6 +2874,9 @@
                                                                             "hostPID": {
                                                                                 "type": "boolean"
                                                                             },
+                                                                            "hostUsers": {
+                                                                                "type": "boolean"
+                                                                            },
                                                                             "hostname": {
                                                                                 "type": "string"
                                                                             },
@@ -3972,6 +4044,13 @@
                                                                                             },
                                                                                             "type": "object"
                                                                                         },
+                                                                                        "matchLabelKeys": {
+                                                                                            "items": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "atomic"
+                                                                                        },
                                                                                         "maxSkew": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
@@ -3979,6 +4058,12 @@
                                                                                         "minDomains": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
+                                                                                        },
+                                                                                        "nodeAffinityPolicy": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "nodeTaintsPolicy": {
+                                                                                            "type": "string"
                                                                                         },
                                                                                         "topologyKey": {
                                                                                             "type": "string"
@@ -4165,9 +4250,46 @@
                                                 ],
                                                 "type": "object"
                                             },
+                                            "plugin": {
+                                                "type": "object",
+                                                "x-kubernetes-preserve-unknown-fields": true
+                                            },
                                             "prometheus": {
                                                 "properties": {
                                                     "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "authentication": {
+                                                        "properties": {
+                                                            "sigv4": {
+                                                                "properties": {
+                                                                    "profile": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "region": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "roleArn": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "query": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "skywalking": {
+                                                "properties": {
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "interval": {
                                                         "type": "string"
                                                     },
                                                     "query": {
@@ -4511,6 +4633,9 @@
                                             },
                                             "datadog": {
                                                 "properties": {
+                                                    "apiVersion": {
+                                                        "type": "string"
+                                                    },
                                                     "interval": {
                                                         "type": "string"
                                                     },
@@ -4587,6 +4712,72 @@
                                                             "parallelism": {
                                                                 "format": "int32",
                                                                 "type": "integer"
+                                                            },
+                                                            "podFailurePolicy": {
+                                                                "properties": {
+                                                                    "rules": {
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "action": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "onExitCodes": {
+                                                                                    "properties": {
+                                                                                        "containerName": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "operator": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "values": {
+                                                                                            "items": {
+                                                                                                "format": "int32",
+                                                                                                "type": "integer"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "set"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "operator",
+                                                                                        "values"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "onPodConditions": {
+                                                                                    "items": {
+                                                                                        "properties": {
+                                                                                            "status": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": {
+                                                                                                "type": "string"
+                                                                                            }
+                                                                                        },
+                                                                                        "required": [
+                                                                                            "status",
+                                                                                            "type"
+                                                                                        ],
+                                                                                        "type": "object"
+                                                                                    },
+                                                                                    "type": "array",
+                                                                                    "x-kubernetes-list-type": "atomic"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "action",
+                                                                                "onPodConditions"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "x-kubernetes-list-type": "atomic"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "rules"
+                                                                ],
+                                                                "type": "object"
                                                             },
                                                             "selector": {
                                                                 "properties": {
@@ -7073,6 +7264,9 @@
                                                                             "hostPID": {
                                                                                 "type": "boolean"
                                                                             },
+                                                                            "hostUsers": {
+                                                                                "type": "boolean"
+                                                                            },
                                                                             "hostname": {
                                                                                 "type": "string"
                                                                             },
@@ -8240,6 +8434,13 @@
                                                                                             },
                                                                                             "type": "object"
                                                                                         },
+                                                                                        "matchLabelKeys": {
+                                                                                            "items": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "atomic"
+                                                                                        },
                                                                                         "maxSkew": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
@@ -8247,6 +8448,12 @@
                                                                                         "minDomains": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
+                                                                                        },
+                                                                                        "nodeAffinityPolicy": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "nodeTaintsPolicy": {
+                                                                                            "type": "string"
                                                                                         },
                                                                                         "topologyKey": {
                                                                                             "type": "string"
@@ -8433,9 +8640,46 @@
                                                 ],
                                                 "type": "object"
                                             },
+                                            "plugin": {
+                                                "type": "object",
+                                                "x-kubernetes-preserve-unknown-fields": true
+                                            },
                                             "prometheus": {
                                                 "properties": {
                                                     "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "authentication": {
+                                                        "properties": {
+                                                            "sigv4": {
+                                                                "properties": {
+                                                                    "profile": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "region": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "roleArn": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "query": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "skywalking": {
+                                                "properties": {
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "interval": {
                                                         "type": "string"
                                                     },
                                                     "query": {
@@ -8779,6 +9023,9 @@
                                             },
                                             "datadog": {
                                                 "properties": {
+                                                    "apiVersion": {
+                                                        "type": "string"
+                                                    },
                                                     "interval": {
                                                         "type": "string"
                                                     },
@@ -8855,6 +9102,72 @@
                                                             "parallelism": {
                                                                 "format": "int32",
                                                                 "type": "integer"
+                                                            },
+                                                            "podFailurePolicy": {
+                                                                "properties": {
+                                                                    "rules": {
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "action": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "onExitCodes": {
+                                                                                    "properties": {
+                                                                                        "containerName": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "operator": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "values": {
+                                                                                            "items": {
+                                                                                                "format": "int32",
+                                                                                                "type": "integer"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "set"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "operator",
+                                                                                        "values"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "onPodConditions": {
+                                                                                    "items": {
+                                                                                        "properties": {
+                                                                                            "status": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": {
+                                                                                                "type": "string"
+                                                                                            }
+                                                                                        },
+                                                                                        "required": [
+                                                                                            "status",
+                                                                                            "type"
+                                                                                        ],
+                                                                                        "type": "object"
+                                                                                    },
+                                                                                    "type": "array",
+                                                                                    "x-kubernetes-list-type": "atomic"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "action",
+                                                                                "onPodConditions"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "x-kubernetes-list-type": "atomic"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "rules"
+                                                                ],
+                                                                "type": "object"
                                                             },
                                                             "selector": {
                                                                 "properties": {
@@ -11341,6 +11654,9 @@
                                                                             "hostPID": {
                                                                                 "type": "boolean"
                                                                             },
+                                                                            "hostUsers": {
+                                                                                "type": "boolean"
+                                                                            },
                                                                             "hostname": {
                                                                                 "type": "string"
                                                                             },
@@ -12508,6 +12824,13 @@
                                                                                             },
                                                                                             "type": "object"
                                                                                         },
+                                                                                        "matchLabelKeys": {
+                                                                                            "items": {
+                                                                                                "type": "string"
+                                                                                            },
+                                                                                            "type": "array",
+                                                                                            "x-kubernetes-list-type": "atomic"
+                                                                                        },
                                                                                         "maxSkew": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
@@ -12515,6 +12838,12 @@
                                                                                         "minDomains": {
                                                                                             "format": "int32",
                                                                                             "type": "integer"
+                                                                                        },
+                                                                                        "nodeAffinityPolicy": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "nodeTaintsPolicy": {
+                                                                                            "type": "string"
                                                                                         },
                                                                                         "topologyKey": {
                                                                                             "type": "string"
@@ -12701,9 +13030,46 @@
                                                 ],
                                                 "type": "object"
                                             },
+                                            "plugin": {
+                                                "type": "object",
+                                                "x-kubernetes-preserve-unknown-fields": true
+                                            },
                                             "prometheus": {
                                                 "properties": {
                                                     "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "authentication": {
+                                                        "properties": {
+                                                            "sigv4": {
+                                                                "properties": {
+                                                                    "profile": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "region": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "roleArn": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "query": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "skywalking": {
+                                                "properties": {
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "interval": {
                                                         "type": "string"
                                                     },
                                                     "query": {
@@ -12969,6 +13335,11 @@
                                         "type": "object"
                                     },
                                     "service": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
                                         "type": "object"
                                     },
                                     "template": {
@@ -15418,6 +15789,9 @@
                                                     "hostPID": {
                                                         "type": "boolean"
                                                     },
+                                                    "hostUsers": {
+                                                        "type": "boolean"
+                                                    },
                                                     "hostname": {
                                                         "type": "string"
                                                     },
@@ -16585,6 +16959,13 @@
                                                                     },
                                                                     "type": "object"
                                                                 },
+                                                                "matchLabelKeys": {
+                                                                    "items": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "type": "array",
+                                                                    "x-kubernetes-list-type": "atomic"
+                                                                },
                                                                 "maxSkew": {
                                                                     "format": "int32",
                                                                     "type": "integer"
@@ -16592,6 +16973,12 @@
                                                                 "minDomains": {
                                                                     "format": "int32",
                                                                     "type": "integer"
+                                                                },
+                                                                "nodeAffinityPolicy": {
+                                                                    "type": "string"
+                                                                },
+                                                                "nodeTaintsPolicy": {
+                                                                    "type": "string"
                                                                 },
                                                                 "topologyKey": {
                                                                     "type": "string"
@@ -19719,6 +20106,13 @@
                                                         },
                                                         "type": "object"
                                                     },
+                                                    "matchLabelKeys": {
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "type": "array",
+                                                        "x-kubernetes-list-type": "atomic"
+                                                    },
                                                     "maxSkew": {
                                                         "format": "int32",
                                                         "type": "integer"
@@ -19726,6 +20120,12 @@
                                                     "minDomains": {
                                                         "format": "int32",
                                                         "type": "integer"
+                                                    },
+                                                    "nodeAffinityPolicy": {
+                                                        "type": "string"
+                                                    },
+                                                    "nodeTaintsPolicy": {
+                                                        "type": "string"
                                                     },
                                                     "topologyKey": {
                                                         "type": "string"
